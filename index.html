@@ -83,7 +83,57 @@ body{background:#d9c7a3;font-family:-apple-system,"PingFang SC","Microsoft YaHei
 .share{font-size:13px;background:#efe3c8;border-radius:10px;padding:10px;color:#6b4226;line-height:1.6}
 .stamp{position:fixed;left:50%;top:42%;font-size:58px;border:6px solid;padding:2px 20px;border-radius:14px;background:rgba(255,250,235,.92);z-index:20;pointer-events:none;white-space:nowrap;letter-spacing:6px;animation:st 1.4s forwards}
 @keyframes st{0%{transform:translate(-50%,-50%) rotate(-12deg) scale(2.6);opacity:0}14%{transform:translate(-50%,-50%) rotate(-12deg) scale(1);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-50%) rotate(-12deg) scale(1);opacity:0}}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(58,38,20,.92);color:#fff3d8;padding:10px 16px;border-radius:12px;font-size:14px;z-index:21;max-width:340px;text-align:center;animation:tf 2.2s forwards}
+.hudBtn{background:#c9a043;color:#3a2410;border:none;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:500;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center}
+.sheetOv{background:rgba(40,24,10,.55);align-items:flex-end;animation:fadein .2s}
+.sheet{width:100%;max-width:430px;max-height:86vh;overflow:auto;background:#f6eedb;border-radius:18px 18px 0 0;padding:16px 16px 26px;animation:up .28s ease-out}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.sheetHead{display:flex;justify-content:space-between;align-items:center;font-size:22px;color:#5a3a22;margin-bottom:12px}
+.x{background:none;border:1px solid #b89466;border-radius:8px;padding:4px 12px;color:#6b4226;font-size:13px;cursor:pointer}
+.sheet .label{margin:14px 0 6px}
+.lrow{display:flex;align-items:center;gap:10px;background:#fffaf0;border:1px solid #e3d2ad;border-radius:12px;padding:8px 10px;margin-bottom:8px;text-align:left}
+.lrow .pic{width:46px;height:46px;background:#efe0bf;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lrow .pic svg{width:38px;height:38px}
+.lrow .info{flex:1;min-width:0}
+.lrow .iname{font-size:14px;color:#5a3a22}
+.lrow.k-rare{background:#fff4cf;border:1.5px solid #c9a043}
+.lrow.k-big{background:#fdeee9;border:1.5px solid #e3a59c}
+.lrow.k-fake,.lrow.k-forced{opacity:.72}
+.lrow.tap{cursor:pointer}
+.pf{font-size:16px;font-weight:500;white-space:nowrap}
+.badge{font-size:11px;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.b-rare{background:#c9a043;color:#3a2410}.b-big{background:#b8322a;color:#fff}.b-good{background:#f6d5cb;color:#9a2a20}.b-fake{background:#8d8d8d;color:#fff}.b-forced{background:#d9cbb0;color:#5a3a22}.b-loss{background:#d7e8dc;color:#2e6b45}
+.replay{font-size:11px;color:#b8322a}
+.reveal{background:rgba(28,14,4,.9);animation:fadein .25s;overflow:hidden}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.reveal.gold .flash{animation:flash .7s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}
+.rays{position:absolute;left:50%;top:42%;width:960px;height:960px;margin:-480px 0 0 -480px;border-radius:50%;background:repeating-conic-gradient(rgba(255,214,110,.38) 0 9deg,transparent 9deg 18deg);-webkit-mask:radial-gradient(circle,#000 8%,transparent 60%);mask:radial-gradient(circle,#000 8%,transparent 60%);animation:spin 16s linear infinite;pointer-events:none}
+.reveal.red .rays{background:repeating-conic-gradient(rgba(255,130,100,.3) 0 9deg,transparent 9deg 18deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rcard{position:relative;width:86%;max-width:360px;background:linear-gradient(#fffaf0,#f6e7c6);border-radius:22px;padding:22px 18px 18px;text-align:center;border:3px solid #c9a043;box-shadow:0 0 0 7px rgba(201,160,67,.25),0 24px 60px rgba(0,0,0,.55);animation:cardin .65s cubic-bezier(.2,1.6,.4,1)}
+.reveal.red .rcard{border-color:#b8322a;box-shadow:0 0 0 7px rgba(184,50,42,.22),0 24px 60px rgba(0,0,0,.55)}
+@keyframes cardin{0%{transform:scale(.25) rotate(-10deg);opacity:0}100%{transform:none;opacity:1}}
+.rtitle{font-size:42px;letter-spacing:8px;color:#b8322a;line-height:1.2}
+.reveal.gold .rtitle{color:#a8770a;text-shadow:0 2px 0 #fff3c4}
+.rsub{font-size:13px;color:#7a5a3a;margin-top:4px}
+.rpic{width:150px;height:150px;margin:12px auto 6px;border-radius:50%;background:radial-gradient(circle,#fff7da 0,#f0d79c 72%);display:flex;align-items:center;justify-content:center;animation:float 2.4s ease-in-out infinite}
+.rpic svg{width:116px;height:116px;filter:drop-shadow(0 6px 8px rgba(120,80,20,.35))}
+@keyframes float{50%{transform:translateY(-8px)}}
+.rname{font-size:20px;color:#5a3a22}
+.rflow{display:flex;justify-content:center;gap:8px;font-size:13px;color:#7a5a3a;margin-top:6px}
+.rprofit{font-size:48px;color:#b8322a;margin-top:4px;font-variant-numeric:tabular-nums;display:inline-block}
+.rprofit.pop{animation:pop .5s cubic-bezier(.2,2,.4,1)}
+@keyframes pop{40%{transform:scale(1.4)}100%{transform:scale(1)}}
+.rmul{font-size:14px;color:#7a5a3a}
+.rmul b{color:#b8322a}
+.rbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px;opacity:0;pointer-events:none;transition:opacity .4s}
+.rbtns.show{opacity:1;pointer-events:auto}
+.fxcv{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.spot.rare{animation:glint 1.4s ease-in-out infinite}
+@keyframes glint{50%{box-shadow:0 0 0 4px rgba(201,160,67,.5)}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(58,38,20,.92);color:#fff3d8;padding:10px 16px;border-radius:12px;font-size:14px;z-index:50;max-width:340px;text-align:center;animation:tf 2.2s forwards}
 @keyframes tf{0%{opacity:0;transform:translate(-50%,10px)}10%{opacity:1;transform:translate(-50%,0)}85%{opacity:1}100%{opacity:0}}
 .shake{animation:sh .35s}
 @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
@@ -152,7 +202,7 @@ const fmt=n=>Math.round(n).toLocaleString('zh-CN');
 let S=null, busy=false;
 
 function newGame(){
-  S={day:1,cash:2000,inv:[],up:{mag:0,abacus:0,sign:0,network:0},market:{},news:[],rentIdx:0,
+  S={day:1,cash:2000,inv:[],up:{mag:0,abacus:0,sign:0,network:0},market:{},news:[],rentIdx:0,ledger:[],lid:0,
      stats:{profit:0,best:0,bestName:'',fakes:0,rares:0,bought:0,sold:0},today:{bought:0,sold:0,earn:0}};
 }
 const rentAmount=k=>Math.round(1200*Math.pow(1.55,k)/100)*100;
@@ -194,7 +244,7 @@ function genCustomer(){
 }
 
 function hud(){
-  return `<div class="hud"><span>第<b>${S.day}</b>天</span><span>现金<b>¥${fmt(S.cash)}</b></span><span>库房<b>${S.inv.length}</b>件</span></div>`;
+  return `<div class="hud"><span>第<b>${S.day}</b>天</span><span>现金<b>¥${fmt(S.cash)}</b></span><span>库房<b>${S.inv.length}</b>件</span><button class="hudBtn" onclick="openLedger()">账本${S.ledger.length?' '+S.ledger.length:''}</button></div>`;
 }
 function rentLeftText(){const l=nextRentDay()-S.day;return l===0?'今晚':l+'天后';}
 function mkHtml(){return `<div class="mk">${CATS.map(c=>{const m=S.market[c];return `<span class="${m>1?'up':m<1?'down':''}">${c} ×${m.toFixed(1)}</span>`;}).join('')}</div>`;}
@@ -232,7 +282,7 @@ function custSVG(c){
 
 /* ---------- 屏幕 ---------- */
 function renderTitle(){
-  const best=JSON.parse(localStorage.getItem('jl_best')||'null');
+  const best=JSON.parse(localStorage.getItem('jl_best')||'null'), sv=readSave();
   app.innerHTML=`<div class="screen center">
     <div class="logo serif">捡漏当铺</div>
     <div class="sub">收得准，卖得巧，才交得起房租</div>
@@ -243,7 +293,14 @@ function renderTitle(){
       <p>4. 不识货的客人手里，偶尔藏着<b>重器</b></p>
     </div>
     ${best?`<div class="best">最佳纪录：撑到第 ${best.days} 天 · 最大一笔捡漏 ¥${fmt(best.best)}</div>`:''}
-    <button class="btn big" onclick="startGame()">开 张</button>
+    ${sv?`<button class="btn big" onclick="continueGame()">继续经营</button>
+      <div class="best">存档：第 ${sv.day} 天 · 现金 ¥${fmt(sv.cash)} · 库房 ${sv.inv.length} 件 · ${screenName(sv.screen)}</div>
+      <button class="btn ghost" onclick="newGameConfirm()">重新开张</button>`
+     :`<button class="btn big" onclick="startGame()">开 张</button>`}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn ghost" onclick="openHall()">珍宝阁${hallList().length?' · '+hallList().length:''}</button>
+      <button class="btn ghost" onclick="toggleMute()">声音：${muted()?'关':'开'}</button>
+    </div>
   </div>`;
 }
 function startGame(){newGame();genMarket();renderDayStart();}
@@ -258,6 +315,7 @@ function renderDayStart(){
     <div class="card">${left===0?'<b class="up">今晚打烊要交房租</b>':'距下次交租还有 '+left+' 天'}：<b>¥${fmt(rentAmount(S.rentIdx))}</b></div>
     <button class="btn big" onclick="openShop()">开门迎客</button>
   </div>`;
+  save('day');
 }
 function openShop(){
   S.eye=4+S.up.mag; S.custTotal=5+S.up.sign; S.custIdx=0; S.today={bought:0,sold:0,earn:0};
@@ -292,6 +350,7 @@ function renderCounter(){
       <button class="btn gray" onclick="reject()">不收，请回</button>
     </div>
   </div>`;
+  save('counter');
 }
 function say(t){const b=document.getElementById('bubble');if(b)b.textContent=t;}
 
@@ -314,20 +373,21 @@ function offer(f){
   if(cu.pat<=0){
     say(pick(cu.c.angry));
     const b=document.getElementById('bubble'); if(b) b.classList.add('shake');
-    busy=true; setTimeout(nextCustomer,1100); return;
+    busy=true; S.cur.done=true; save('counter'); setTimeout(nextCustomer,1100); return;
   }
   cu.ask=Math.max(cu.floor,r10(cu.ask-(cu.ask-price)*0.4));
   const line=pick(cu.c.haggle)+` ¥${fmt(cu.ask)}，不能再少了。`;
-  renderCounter(); say(line);
+  cu.line=line; renderCounter();
 }
 function buy(price){
   busy=true;
   S.cash-=price; S.stats.bought++; S.today.bought++;
   S.inv.push({...S.cur.item,paid:price,day:S.day});
   toast(`收入 ${S.cur.item.name}，付出 ¥${fmt(price)}`);
+  S.cur.done=true; save('counter');
   setTimeout(nextCustomer,1100);
 }
-function reject(){if(busy)return;busy=true;say('那……我再去别家问问。');setTimeout(nextCustomer,800);}
+function reject(){if(busy)return;busy=true;say('那……我再去别家问问。');S.cur.done=true;save('counter');setTimeout(nextCustomer,800);}
 function nextCustomer(){
   S.custIdx++; busy=false;
   if(S.custIdx>=S.custTotal){renderClose();return;}
@@ -344,21 +404,28 @@ function renderClose(){
       <div class="info"><div class="iname serif">${it.name}</div><div class="meta">收价 ¥${fmt(it.paid)} · ${it.type.cat} ×${S.market[it.type.cat].toFixed(1)}${it.day<S.day?' · 压货'+(S.day-it.day)+'天':''}</div></div>
       <button class="btn small" onclick="sell(${i})">出手</button></div>`).join(''):'<div class="empty">库房空空如也</div>'}</div>
     <div class="tip">不出手的货留在库房，可以等行情好了再卖</div>
+    ${todayRows()}
     <div class="card" style="text-align:center">${left===0?`<b class="up">今晚要交房租 ¥${fmt(rentAmount(S.rentIdx))}</b>`:`${left} 天后交房租 ¥${fmt(rentAmount(S.rentIdx))}`}</div>
     <button class="btn big" onclick="endDay()">打 烊</button>
   </div>`;
+  save('close');
 }
 function sell(i){
   if(busy)return;
-  const it=S.inv[i], v=sellValue(it), p=v-it.paid;
+  const it=S.inv[i], v=sellValue(it), p=v-it.paid, prevBest=S.stats.best;
   S.cash+=v; S.inv.splice(i,1); S.stats.profit+=p; S.stats.sold++; S.today.sold++; S.today.earn+=p;
   if(p>S.stats.best){S.stats.best=p;S.stats.bestName=it.name;}
-  if(it.isFake){S.stats.fakes++;stamp('打眼了','#555');toast(`赝品！只卖了 ¥${fmt(v)}，亏 ¥${fmt(-p)}`);}
-  else if(it.isRare){S.stats.rares++;stamp('捡到宝','#c9a043');toast(`竟是官窑重器！卖出 ¥${fmt(v)}，净赚 ¥${fmt(p)}`);}
-  else if(p>=Math.max(200,it.paid*0.5)){stamp('捡漏','#b8322a');toast(`卖出 ¥${fmt(v)}，赚 ¥${fmt(p)}`);}
-  else if(p<0){toast(`卖出 ¥${fmt(v)}，亏了 ¥${fmt(-p)}`);}
-  else toast(`卖出 ¥${fmt(v)}，小赚 ¥${fmt(p)}`);
+  const kind=it.isFake?'fake':it.isRare?'rare':(p>=1000&&v>=it.paid*2)?'big':p>=Math.max(200,it.paid*0.5)?'good':p<0?'loss':'small';
+  const e={id:++S.lid,day:S.day,name:it.isRare?it.name.replace(' ',' 御制'):it.name,typeId:it.type.id,paid:it.paid,sold:v,profit:p,kind,recordBreak:p>prevBest&&prevBest>0};
+  S.ledger.push(e);
+  if(kind==='fake') S.stats.fakes++;
+  if(kind==='rare') S.stats.rares++;
   renderClose();
+  if(kind==='rare'||kind==='big'){addHall(e);showReveal(e);}
+  else if(kind==='good'){stamp('捡漏','#b8322a');chime('good');burst(40,['#b8322a','#e2b73f'],true,0.45);toast(`卖出 ¥${fmt(v)}，赚 ¥${fmt(p)}`);}
+  else if(kind==='fake'){stamp('打眼了','#555');chime('fake');app.classList.add('shake');setTimeout(()=>app.classList.remove('shake'),400);toast(`赝品！只卖了 ¥${fmt(v)}，亏 ¥${fmt(-p)}`);}
+  else if(kind==='loss') toast(`卖出 ¥${fmt(v)}，亏了 ¥${fmt(-p)}`);
+  else toast(`卖出 ¥${fmt(v)}，小赚 ¥${fmt(p)}`);
 }
 function endDay(){
   if(busy)return;
@@ -366,7 +433,8 @@ function endDay(){
   if(S.day===nextRentDay()){
     const rent=rentAmount(S.rentIdx);
     if(S.cash<rent&&S.inv.length){
-      let sum=0; S.inv.forEach(it=>{const v=r10(sellValue(it)*0.7);sum+=v;S.stats.profit+=v-it.paid;}); S.inv=[]; S.cash+=sum;
+      let sum=0; S.inv.forEach(it=>{const v=r10(sellValue(it)*0.7);sum+=v;S.stats.profit+=v-it.paid;
+        S.ledger.push({id:++S.lid,day:S.day,name:it.name,typeId:it.type.id,paid:it.paid,sold:v,profit:v-it.paid,kind:'forced'});}); S.inv=[]; S.cash+=sum;
       msg+=`现金不够交租，库存被迫七折贱卖，换回 ¥${fmt(sum)}。`;
     }
     if(S.cash<rent){gameOver(rent);return;}
@@ -375,21 +443,25 @@ function endDay(){
   renderUpgrade(msg);
 }
 function renderUpgrade(msg){
+  if(msg!==undefined) S.upMsg=msg; msg=S.upMsg||'';
   app.innerHTML=hud()+`<div class="screen">
     <div class="secTitle serif">第 ${S.day} 天 · 打烊</div>
     <div class="card">今天收货 ${S.today.bought} 件，出手 ${S.today.sold} 件，净赚 <b class="${S.today.earn>=0?'up':'down'}">¥${fmt(S.today.earn)}</b>${msg?'<br>'+msg:''}
       <br>下次交租：第 ${nextRentDay()} 天，<b>¥${fmt(rentAmount(S.rentIdx))}</b></div>
+    ${(()=>{const b=bestOf(S.ledger.filter(e=>e.day===S.day));return b?`<div class="label" style="margin-bottom:-6px">今日最得意的一笔</div>${entryRow(b)}`:'';})()}
     <div class="label" style="margin-bottom:-6px">添置家当</div>
     ${UPS.map(u=>{const lv=S.up[u.k],max=lv>=u.cost.length,c=max?0:u.cost[lv];
       return `<div class="upItem"><div class="info"><div class="nm">${u.name}<span class="lv">${lv?'Lv.'+lv:''}</span></div><div class="meta">${u.desc}</div></div>
       <button class="btn small ${max?'gray':'gold'}" ${max||S.cash<c?'disabled':''} onclick="buyUp('${u.k}')">${max?'已满级':'¥'+fmt(c)}</button></div>`;}).join('')}
     <button class="btn big" onclick="nextDay()">明天见</button>
   </div>`;
+  save('upgrade');
 }
-function buyUp(k){const u=UPS.find(x=>x.k===k),lv=S.up[k];if(lv>=u.cost.length||S.cash<u.cost[lv])return;S.cash-=u.cost[lv];S.up[k]++;toast(`添置了${u.name}`);renderUpgrade('');}
+function buyUp(k){const u=UPS.find(x=>x.k===k),lv=S.up[k];if(lv>=u.cost.length||S.cash<u.cost[lv])return;S.cash-=u.cost[lv];S.up[k]++;toast(`添置了${u.name}`);renderUpgrade();}
 function nextDay(){S.day++;genMarket();renderDayStart();}
 
 function gameOver(rent){
+  clearSave();
   const d=S.day;
   const rank=d<=4?'学徒':d<=8?'伙计':d<=12?'掌柜':d<=18?'大掌柜':'鉴宝宗师';
   const best=JSON.parse(localStorage.getItem('jl_best')||'null');
@@ -405,11 +477,183 @@ function gameOver(rent){
       <div class="stat"><div class="n">${S.stats.bought}</div><div class="l">收货件数</div></div>
       <div class="stat"><div class="n">${S.stats.fakes}</div><div class="l">打眼次数</div></div>
     </div>
+    ${(()=>{const b=bestOf(S.ledger);return b?`<div class="label" style="margin-bottom:-6px;text-align:left">本局最得意的一笔</div>${entryRow(b)}`:'';})()}
     <div class="share">我在《捡漏当铺》撑到第 ${d} 天，${S.stats.best>0?`最狠一次收${S.stats.bestName}净赚 ¥${fmt(S.stats.best)}，`:''}打眼 ${S.stats.fakes} 次。你能比我眼毒吗？</div>
+    <button class="btn ghost" onclick="openLedger()">查看本局账本（${S.ledger.length} 笔）</button>
     <button class="btn big" onclick="startGame()">再开一家</button>
     <button class="btn ghost" onclick="renderTitle()">回到首页</button>
   </div>`;
 }
+/* ---------- 账本 / 珍宝阁 ---------- */
+const BADGE={rare:['重器','b-rare'],big:['大捡漏','b-big'],good:['捡漏','b-good'],fake:['赝品','b-fake'],forced:['贱卖','b-forced'],loss:['亏','b-loss']};
+const bestOf=L=>{const c=L.filter(e=>e.profit>0);return c.length?c.reduce((a,b)=>b.profit>a.profit?b:a):null;};
+function entryRow(e,src){
+  const b=BADGE[e.kind], tap=(e.kind==='rare'||e.kind==='big');
+  const call=src==='hall'?`replayH(${e._i})`:`replayL(${e.id})`;
+  return `<div class="lrow k-${e.kind} ${tap?'tap':''}" ${tap?`onclick="${call}"`:''}>
+    <div class="pic">${itemSVG(e.typeId)}</div>
+    <div class="info"><div class="iname serif">${e.name}${b?`<span class="badge ${b[1]}">${b[0]}</span>`:''}</div>
+      <div class="meta">${e.date?e.date:'第'+e.day+'天'} · 收 ¥${fmt(e.paid)} → 卖 ¥${fmt(e.sold)}${tap?' · <span class="replay">点击回看</span>':''}</div></div>
+    <div class="pf ${e.profit>=0?'up':'down'}">${e.profit>=0?'+':'-'}¥${fmt(Math.abs(e.profit))}</div></div>`;
+}
+function todayRows(){
+  const L=S.ledger.filter(e=>e.day===S.day);
+  if(!L.length) return '';
+  const sum=L.reduce((a,e)=>a+e.profit,0);
+  return `<div class="label" style="margin-bottom:-6px">今日成交 · 合计 <b class="${sum>=0?'up':'down'}">${sum>=0?'+':'-'}¥${fmt(Math.abs(sum))}</b></div><div>${[...L].reverse().map(e=>entryRow(e)).join('')}</div>`;
+}
+function sheet(html){
+  const ov=document.createElement('div'); ov.className='ov sheetOv';
+  ov.onclick=ev=>{if(ev.target===ov) ov.remove();};
+  ov.innerHTML=`<div class="sheet">${html}</div>`; document.body.appendChild(ov);
+}
+function closeOv(el){const o=el.closest('.ov'); if(o) o.remove();}
+function openLedger(){
+  const L=S.ledger, sum=L.reduce((a,e)=>a+e.profit,0);
+  const top=L.filter(e=>e.profit>0).sort((a,b)=>b.profit-a.profit).slice(0,3);
+  sheet(`<div class="sheetHead"><span class="serif">账本</span><button class="x" onclick="closeOv(this)">关闭</button></div>
+    <div class="stats">
+      <div class="stat"><div class="n ${sum>=0?'':'down'}">${sum>=0?'':'-'}¥${fmt(Math.abs(sum))}</div><div class="l">累计盈亏</div></div>
+      <div class="stat"><div class="n">${L.length}</div><div class="l">出手件数</div></div>
+      <div class="stat"><div class="n">${L.filter(e=>e.kind==='rare').length}</div><div class="l">捡到重器</div></div>
+      <div class="stat"><div class="n">${L.filter(e=>e.kind==='fake').length}</div><div class="l">打眼次数</div></div>
+    </div>
+    ${top.length?`<div class="label">高光时刻</div>${top.map(e=>entryRow(e)).join('')}`:''}
+    <div class="label">全部记录（最新在前）</div>
+    ${L.length?[...L].reverse().map(e=>entryRow(e)).join(''):'<div class="empty">还没卖出过东西，收市时出手的每一笔都会记在这里</div>'}`);
+}
+const hallList=()=>JSON.parse(localStorage.getItem('jl_hall')||'[]');
+function addHall(e){
+  const h=hallList(); h.push({...e,date:new Date().toLocaleDateString('zh-CN')});
+  h.sort((a,b)=>b.profit-a.profit); localStorage.setItem('jl_hall',JSON.stringify(h.slice(0,10)));
+}
+function openHall(){
+  const h=hallList().map((e,i)=>({...e,_i:i}));
+  sheet(`<div class="sheetHead"><span class="serif">珍宝阁</span><button class="x" onclick="closeOv(this)">关闭</button></div>
+    <div class="tip" style="text-align:left">历次开店中最得意的十笔交易（重器与大捡漏），点击可回看当时的场面</div>
+    <div style="margin-top:10px">${h.length?h.map(e=>entryRow(e,'hall')).join(''):'<div class="empty">还没有藏品。收到重器或大捡漏后，会被陈列在这里</div>'}</div>`);
+}
+function replayL(id){const e=S.ledger.find(x=>x.id===id); if(e) showReveal(e,true);}
+function replayH(i){const e=hallList()[i]; if(e) showReveal(e,true);}
+
+/* ---------- 揭晓动画 ---------- */
+let REV=null;
+function showReveal(e,replay){
+  REV=e;
+  const rare=e.kind==='rare';
+  document.querySelectorAll('.reveal').forEach(x=>x.remove());
+  const ov=document.createElement('div'); ov.className='ov reveal '+(rare?'gold':'red');
+  ov.innerHTML=`<div class="flash"></div><div class="rays"></div>
+    <div class="rcard">
+      <div class="rtitle serif">${rare?'捡到宝了':'大捡漏'}</div>
+      <div class="rsub">${rare?'不识货的客人手里，竟是一件御制重器！':'眼毒手快，这一单赚翻了！'}</div>
+      <div class="rpic">${itemSVG(e.typeId)}</div>
+      <div class="rname serif">${e.name}</div>
+      <div class="rflow"><span>收价 ¥${fmt(e.paid)}</span><span>→</span><span>卖出 ¥${fmt(e.sold)}</span></div>
+      <div class="rprofit serif">+¥<span class="cnt">0</span></div>
+      <div class="rmul">翻了 <b>${(e.sold/Math.max(1,e.paid)).toFixed(1)}</b> 倍${e.recordBreak&&!replay?' · <b>刷新本局最大一笔</b>':''}</div>
+      <div class="rbtns"><button class="btn gold" onclick="copyText(shareText(REV))">炫耀一下</button><button class="btn" onclick="closeOv(this)">${replay?'关闭':'收进账本'}</button></div>
+    </div>`;
+  document.body.appendChild(ov);
+  const cnt=ov.querySelector('.cnt'), pr=ov.querySelector('.rprofit'), bt=ov.querySelector('.rbtns');
+  chime(rare?'rare':'big');
+  if(navigator.vibrate) navigator.vibrate(rare?[60,40,60,40,160]:[50,30,90]);
+  setTimeout(()=>burst(rare?50:30,['#e2b73f','#fff1b8'],false,0.42),250);
+  countUp(cnt,e.profit,rare?1600:1200,()=>{
+    pr.classList.add('pop');
+    burst(rare?150:90,rare?['#e2b73f','#fff1b8','#ffd34d','#b8322a']:['#b8322a','#e2b73f','#f08a6a'],true,0.42);
+    if(rare) rain(70);
+    chime('ding');
+  });
+  setTimeout(()=>bt.classList.add('show'),rare?1900:1500);
+}
+function countUp(el,to,ms,done){
+  const t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/ms),q=1-Math.pow(1-k,3);el.textContent=fmt(to*q);if(k<1)requestAnimationFrame(f);else done&&done();})(t0);
+}
+function shareText(e){
+  const url=location.href.split('?')[0].split('#')[0];
+  return `我在《捡漏当铺》花 ¥${fmt(e.paid)} 收了件${e.name}，${e.kind==='rare'?'竟然是件御制重器，':''}转手卖了 ¥${fmt(e.sold)}，翻了 ${(e.sold/Math.max(1,e.paid)).toFixed(1)} 倍！来试试你的眼力：${url}`;
+}
+function copyText(t){
+  const ok=()=>toast('已复制，发给朋友炫耀一下吧');
+  const fb=()=>{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(_){toast(t);} ta.remove();};
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(ok,fb); else fb();
+}
+
+/* ---------- 粒子 ---------- */
+let fxCv=null,fxCtx=null,parts=[],fxRaf=0;
+function fxInit(){
+  if(!fxCv){fxCv=document.createElement('canvas');fxCv.className='fxcv';document.body.appendChild(fxCv);fxCtx=fxCv.getContext('2d');}
+  const d=window.devicePixelRatio||1;
+  if(fxCv.width!==innerWidth*d){fxCv.width=innerWidth*d;fxCv.height=innerHeight*d;}
+  fxCtx.setTransform(d,0,0,d,0,0);
+}
+function burst(n,pal,coins,yr){
+  fxInit(); const cx=innerWidth/2, cy=innerHeight*(yr||0.42);
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=rand(3,12);
+    parts.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-rand(2,6),g:rand(0.16,0.3),r:rand(5,10),rot:rand(0,6.3),vr:rand(-0.3,0.3),coin:coins&&Math.random()<0.45,c:pick(pal),life:rand(80,140)});}
+  if(!fxRaf) fxRaf=requestAnimationFrame(fxLoop);
+}
+function rain(n){
+  fxInit();
+  for(let i=0;i<n;i++) parts.push({x:rand(0,innerWidth),y:rand(-innerHeight*0.6,-20),vx:rand(-0.6,0.6),vy:rand(2,5),g:0.08,r:rand(7,11),rot:rand(0,6.3),vr:rand(-0.15,0.15),coin:true,c:'#e2b73f',life:400});
+  if(!fxRaf) fxRaf=requestAnimationFrame(fxLoop);
+}
+function fxLoop(){
+  const c=fxCtx; c.clearRect(0,0,innerWidth,innerHeight);
+  parts=parts.filter(p=>p.life>0&&p.y<innerHeight+40);
+  for(const p of parts){
+    p.vy+=p.g;p.vx*=0.985;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.life--;
+    c.save();c.translate(p.x,p.y);c.rotate(p.rot);c.globalAlpha=Math.min(1,p.life/30);
+    if(p.coin){c.scale(Math.abs(Math.cos(p.rot*2))*0.7+0.3,1);c.fillStyle='#e2b73f';c.beginPath();c.arc(0,0,p.r,0,7);c.fill();c.lineWidth=1.5;c.strokeStyle='#9a7424';c.stroke();c.fillStyle='#8a6418';c.fillRect(-p.r*0.3,-p.r*0.3,p.r*0.6,p.r*0.6);}
+    else{c.fillStyle=p.c;c.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);}
+    c.restore();
+  }
+  if(parts.length) fxRaf=requestAnimationFrame(fxLoop); else {fxRaf=0;c.clearRect(0,0,innerWidth,innerHeight);}
+}
+
+/* ---------- 音效 ---------- */
+let actx=null;
+const muted=()=>localStorage.getItem('jl_mute')==='1';
+function toggleMute(){localStorage.setItem('jl_mute',muted()?'0':'1');renderTitle();}
+function chime(kind){
+  if(muted())return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    const N={rare:[523,659,784,1047,1319,1568],big:[523,659,784,1047],good:[784,1175],fake:[233,175],ding:[1568,2093]}[kind]||[880];
+    N.forEach((f,i)=>{const o=actx.createOscillator(),g=actx.createGain();o.type=kind==='fake'?'square':'triangle';o.frequency.value=f;
+      const t=actx.currentTime+i*(kind==='ding'?0.06:0.09),v=kind==='fake'?0.05:0.16;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+0.01);g.gain.exponentialRampToValueAtTime(0.001,t+0.6);
+      o.connect(g).connect(actx.destination);o.start(t);o.stop(t+0.65);});
+  }catch(_){}
+}
+/* ---------- 存档 ---------- */
+const SAVE_KEY='jl_save_v1';
+function save(screen){
+  if(!S) return; S.screen=screen;
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));}catch(_){}
+}
+function readSave(){try{const d=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');return d&&d.day?d:null;}catch(_){return null;}}
+function clearSave(){try{localStorage.removeItem(SAVE_KEY);}catch(_){}}
+const screenName=k=>({day:'开门前',counter:'营业中',close:'收市中',upgrade:'已打烊'}[k]||'');
+function relinkItem(it){it.type=TYPES.find(t=>t.id===it.type.id)||it.type;return it;}
+function continueGame(){
+  const d=readSave(); if(!d){renderTitle();return;}
+  S=d; busy=false;
+  S.inv.forEach(relinkItem);
+  if(S.cur){relinkItem(S.cur.item); S.cur.c=CUST.find(c=>c.t===S.cur.c.t)||S.cur.c;}
+  if(S.screen==='counter'){ if(S.cur&&!S.cur.done) renderCounter(); else nextCustomer(); }
+  else if(S.screen==='close') renderClose();
+  else if(S.screen==='upgrade') renderUpgrade();
+  else renderDayStart();
+  toast('已读取存档，欢迎回来，掌柜的');
+}
+function newGameConfirm(){
+  if(confirm('重新开张会清空当前这局的存档（珍宝阁和最佳纪录会保留），确定吗？')){clearSave();startGame();}
+}
+window.addEventListener('pagehide',()=>{if(S&&S.screen&&readSave()) save(S.screen);});
 renderTitle();
 </script>
 </body>
