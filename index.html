@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>捡漏当铺 · 可玩原型</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#d9c7a3;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#3a2614;user-select:none}
+#app{position:relative;max-width:430px;min-height:100vh;margin:0 auto;background:#f6eedb;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,0,0,.15)}
+.serif{font-family:"Songti SC","STSong","SimSun",serif}
+.hud{display:flex;justify-content:space-between;align-items:center;background:#5a3a22;color:#f1e1c0;padding:10px 14px;font-size:13px}
+.hud b{font-size:16px;color:#ffd77a;margin-left:2px}
+.subhud{display:flex;justify-content:space-between;padding:7px 14px;font-size:12px;color:#7a5a3a;background:#efe3c8;border-bottom:1px solid #e0cfa8}
+.eye{color:#b8322a;letter-spacing:1px}
+.screen{flex:1;padding:22px 18px;display:flex;flex-direction:column;gap:14px}
+.center{justify-content:center;align-items:stretch;text-align:center}
+.logo{font-size:52px;color:#b8322a;letter-spacing:6px;margin-top:20px}
+.sub{color:#7a5a3a;font-size:14px;margin-bottom:10px}
+.card{background:#fffaf0;border:1px solid #e3d2ad;border-radius:14px;padding:14px 16px;text-align:left;font-size:14px;line-height:1.7}
+.rules p{margin:4px 0}
+.label{font-size:12px;color:#9a7a55;margin-bottom:4px}
+.best{font-size:13px;color:#8a6a45}
+.btn{background:#b8322a;color:#fff8e8;border:none;border-radius:12px;padding:12px 10px;font-size:15px;cursor:pointer;font-weight:500;transition:transform .08s}
+.btn:active{transform:scale(.96)}
+.btn:disabled{opacity:.35}
+.btn.big{font-size:18px;padding:15px;letter-spacing:4px}
+.btn.ghost{background:#fffaf0;color:#6b4226;border:1.5px solid #b89466}
+.btn.gray{background:#c9bba0;color:#4a3826}
+.btn.gold{background:#c9a043;color:#3a2410}
+.btn.small{padding:8px 14px;font-size:14px}
+.dayTitle{font-size:44px;color:#5a3a22;letter-spacing:4px}
+.up{color:#c0392b}.down{color:#2e8b57}
+.mk{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.mk span{font-size:12px;padding:3px 8px;border-radius:20px;background:#f2e8d2}
+.scene{display:flex;align-items:flex-end;gap:8px;padding:12px 14px 0;background:#e8d6b0;min-height:120px}
+.cust{text-align:center;flex-shrink:0}
+.cname{font-size:13px;margin-top:-4px;padding-bottom:6px}
+.tag{display:inline-block;font-size:11px;background:#5a3a22;color:#f1e1c0;padding:1px 6px;border-radius:8px;margin-left:4px}
+.bubble{position:relative;flex:1;background:#fffaf0;border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.6;margin-bottom:22px;min-height:48px;border:1px solid #d9c49a}
+.bubble:before{content:"";position:absolute;left:-8px;bottom:14px;border:8px solid transparent;border-right-color:#fffaf0;border-left:0}
+.counter{background:#7a4a28;padding:12px 14px 14px;color:#3a2614}
+.itemRow{display:flex;gap:12px;background:#f8efdc;border-radius:12px;padding:10px}
+.itemPic{width:96px;height:96px;flex-shrink:0;background:#efe0bf;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.itemPic svg{width:84px;height:84px}
+.iname{font-size:18px;color:#5a3a22}
+.meta{font-size:12px;color:#8a6a45;margin-top:2px}
+.est{font-size:13px;margin-top:6px}
+.est b{color:#b8322a;font-size:15px}
+.spots{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.spot{font-size:13px;border-radius:10px;padding:8px 10px;text-align:left;line-height:1.5}
+.spot b{margin-right:6px}
+.btnSpot{background:#f8efdc;border:1.5px dashed #c9a46a;color:#6b4226;cursor:pointer;display:flex;justify-content:space-between}
+.btnSpot span{color:#b8322a;font-size:12px}
+.btnSpot:disabled{opacity:.4}
+.spot.ok{background:#e7f1df;color:#2f5a2a}
+.spot.bad{background:#f8dcd6;color:#9a2a20}
+.spot.rare{background:#fbefc4;color:#7a5410;border:1.5px solid #c9a043}
+.deal{padding:12px 14px 18px;background:#f6eedb}
+.askRow{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;font-size:13px;color:#7a5a3a}
+.askRow b{font-size:28px;color:#b8322a}
+.pat{margin-left:auto;color:#b8322a;letter-spacing:2px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btns .full{grid-column:1/3}
+.secTitle{font-size:26px;color:#5a3a22;text-align:center}
+.invList{display:flex;flex-direction:column;gap:8px}
+.invItem{display:flex;align-items:center;gap:10px;background:#fffaf0;border:1px solid #e3d2ad;border-radius:12px;padding:8px 10px}
+.invItem .pic{width:52px;height:52px;background:#efe0bf;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.invItem .pic svg{width:44px;height:44px}
+.invItem .info{flex:1;text-align:left}
+.invItem .iname{font-size:15px}
+.empty{color:#9a7a55;text-align:center;padding:30px 0}
+.tip{font-size:12px;color:#9a7a55;text-align:center}
+.upItem{display:flex;align-items:center;gap:10px;background:#fffaf0;border:1px solid #e3d2ad;border-radius:12px;padding:10px 12px;text-align:left}
+.upItem .info{flex:1}
+.upItem .nm{font-size:15px;font-weight:500}
+.lv{font-size:11px;color:#c9a043;margin-left:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:#fffaf0;border:1px solid #e3d2ad;border-radius:12px;padding:10px}
+.stat .n{font-size:22px;color:#b8322a}
+.stat .l{font-size:12px;color:#9a7a55}
+.rank{font-size:40px;color:#b8322a;letter-spacing:4px}
+.share{font-size:13px;background:#efe3c8;border-radius:10px;padding:10px;color:#6b4226;line-height:1.6}
+.stamp{position:fixed;left:50%;top:42%;font-size:58px;border:6px solid;padding:2px 20px;border-radius:14px;background:rgba(255,250,235,.92);z-index:20;pointer-events:none;white-space:nowrap;letter-spacing:6px;animation:st 1.4s forwards}
+@keyframes st{0%{transform:translate(-50%,-50%) rotate(-12deg) scale(2.6);opacity:0}14%{transform:translate(-50%,-50%) rotate(-12deg) scale(1);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-50%) rotate(-12deg) scale(1);opacity:0}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(58,38,20,.92);color:#fff3d8;padding:10px 16px;border-radius:12px;font-size:14px;z-index:21;max-width:340px;text-align:center;animation:tf 2.2s forwards}
+@keyframes tf{0%{opacity:0;transform:translate(-50%,10px)}10%{opacity:1;transform:translate(-50%,0)}85%{opacity:1}100%{opacity:0}}
+.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const app = document.getElementById('app');
+const CATS = ['瓷器','钱币','玉器','字画','杂项'];
+const TYPES = [
+  {id:'vase',name:'青花瓷瓶',cat:'瓷器',lo:800,hi:3200},
+  {id:'bowl',name:'粉彩小碗',cat:'瓷器',lo:300,hi:1400},
+  {id:'coin',name:'乾隆通宝',cat:'钱币',lo:120,hi:700},
+  {id:'silver',name:'老银元',cat:'钱币',lo:250,hi:1000},
+  {id:'bangle',name:'翡翠手镯',cat:'玉器',lo:600,hi:3800},
+  {id:'pendant',name:'和田玉佩',cat:'玉器',lo:400,hi:2400},
+  {id:'scroll',name:'山水立轴',cat:'字画',lo:500,hi:4500},
+  {id:'teapot',name:'紫砂壶',cat:'杂项',lo:300,hi:2000},
+  {id:'watch',name:'老怀表',cat:'杂项',lo:300,hi:1600}
+];
+const ERAS = ['清早期','清中期','清晚期','民国','明末'];
+const SPOTS = {
+  '瓷器':[{k:'底款',ok:['底款规整，写款自然','款识老辣，青花发色沉稳'],bad:['底款字体呆板，像是印上去的','底款太清晰了，毫无磨损']},
+          {k:'釉面',ok:['釉面温润，有自然开片','釉光内敛，宝光莹润'],bad:['釉面贼光刺眼，像新烧的','釉面有化学做旧的痕迹']},
+          {k:'胎质',ok:['胎质细密，火石红自然','露胎处包浆老旧'],bad:['胎体过轻，手感不对','露胎处有机器打磨痕迹']}],
+  '钱币':[{k:'字口',ok:['字口深峻，笔画有力'],bad:['字口软塌，像是翻砂铸的']},
+          {k:'包浆',ok:['包浆熟旧，锈色入骨'],bad:['锈色浮在表面，一擦就掉']},
+          {k:'边齿',ok:['边齿均匀，磨损自然'],bad:['边齿粗糙，有锉刀痕迹']}],
+  '玉器':[{k:'光泽',ok:['油脂光泽，温润细腻'],bad:['光泽发贼，像是抛了蜡']},
+          {k:'纹理',ok:['内部棉絮自然分布'],bad:['颜色浮在表面，像是染的']},
+          {k:'敲声',ok:['轻敲声音清脆悠长'],bad:['敲击声音发闷，可能注了胶']}],
+  '字画':[{k:'印章',ok:['印泥沉稳，印文清晰'],bad:['印泥颜色太鲜，像新盖的']},
+          {k:'笔墨',ok:['笔墨流畅，气韵生动'],bad:['笔触迟疑，有临摹痕迹']},
+          {k:'纸张',ok:['纸张自然老化，有虫蛀'],bad:['纸张是用茶水做旧的']}],
+  '杂项':[{k:'款识',ok:['刻款老到，刀工利落'],bad:['刻款生硬，是机器刻的']},
+          {k:'做工',ok:['做工精细，细节到位'],bad:['细节粗糙，模具痕迹明显']},
+          {k:'磨损',ok:['磨损位置符合常年使用'],bad:['磨损太均匀，像砂纸打的']}]
+};
+const RARE_HINT = '宝光内蕴，不似凡品——这可能是件重器！';
+const CUST = [
+  {t:'急用钱',names:['落魄少爷','赶考书生','病人家属'],askR:[0.6,0.85],floorR:[0.35,0.5],pat:3,fake:0.22,rare:0.04,coat:'#7a8a99',
+   lines:['家里急用钱，您看着给个价吧……','这是祖上传下来的，实在是没办法了。'],
+   haggle:['再让点……也行，您别让我空手回去。','唉，真的不能再低了……'],accept:['谢谢掌柜的，救急了！'],angry:['您这也太欺负人了，我去别家！']},
+  {t:'老行家',names:['钱老板','孙掌柜','古董贩子老周'],askR:[1.0,1.3],floorR:[0.85,1.0],pat:1,fake:0.15,rare:0.01,coat:'#4b3a2a',
+   lines:['好东西，行价您是知道的。','开门老货，这价不还。'],
+   haggle:['看在老交情，最多让这些。'],accept:['痛快，下回有好货还找您。'],angry:['不识货，告辞。']},
+  {t:'不识货',names:['拆迁户老赵','乡下大婶','收破烂的小刘'],askR:[0.4,0.75],floorR:[0.25,0.4],pat:2,fake:0.45,rare:0.12,coat:'#6d7a3a',
+   lines:['老屋里翻出来的，我也不懂，您给瞧瞧？','这玩意儿值钱不？您随便给点就行。'],
+   haggle:['啊？这么便宜？那……再加点呗？'],accept:['行嘞，换俩钱买菜去！'],angry:['算了算了，我拿去问问别人。']},
+  {t:'寻常百姓',names:['王大爷','李婶','小张','刘师傅'],askR:[0.85,1.1],floorR:[0.6,0.8],pat:2,fake:0.3,rare:0.03,coat:'#8b5a3c',
+   lines:['听说您这儿收老物件？','家里老人留下的，您给估个价？'],
+   haggle:['这样吧，咱各让一步。','您再加点，我就出了。'],accept:['成，就这么着吧。'],angry:['这价太低了，不卖了。']}
+];
+const UPS = [
+  {k:'mag',name:'西洋放大镜',desc:'每天眼力 +1',cost:[400,900,1600,2600]},
+  {k:'abacus',name:'金算盘',desc:'你的估价区间更准',cost:[600,1400]},
+  {k:'sign',name:'老字号招牌',desc:'每天多来 1 位客人',cost:[700,1600,2800]},
+  {k:'network',name:'藏家人脉',desc:'出货价 +15%',cost:[800,1800,3000]}
+];
+
+const rand=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const r10=n=>Math.max(10,Math.round(n/10)*10);
+const fmt=n=>Math.round(n).toLocaleString('zh-CN');
+let S=null, busy=false;
+
+function newGame(){
+  S={day:1,cash:2000,inv:[],up:{mag:0,abacus:0,sign:0,network:0},market:{},news:[],rentIdx:0,
+     stats:{profit:0,best:0,bestName:'',fakes:0,rares:0,bought:0,sold:0},today:{bought:0,sold:0,earn:0}};
+}
+const rentAmount=k=>Math.round(1200*Math.pow(1.55,k)/100)*100;
+const nextRentDay=()=>(S.rentIdx+1)*3;
+const sellMult=()=>1+0.15*S.up.network;
+
+function genMarket(){
+  CATS.forEach(c=>S.market[c]=1);
+  S.news=[];
+  if(S.day===1) return;
+  const n=Math.random()<0.5?1:2;
+  const cs=[...CATS].sort(()=>Math.random()-0.5).slice(0,n);
+  cs.forEach(c=>{
+    const up=Math.random()<0.55;
+    const m=up?pick([1.3,1.5,1.8]):pick([0.6,0.7,0.8]);
+    S.market[c]=m;
+    S.news.push({up,text:up?pick([`拍卖行传出${c}天价成交，${c}行情大涨`,`南方藏家进城扫货，${c}一货难求`]):pick([`${c}赝品风波发酵，买家纷纷观望`,`有人大批抛售${c}，价格走低`])});
+  });
+}
+
+function genCustomer(){
+  const c=pick(CUST), type=pick(TYPES);
+  const apparent=r10(rand(type.lo,type.hi));
+  const isFake=Math.random()<(S.day===1?c.fake*0.5:Math.min(0.6,c.fake+(S.day-1)*0.02));
+  const isRare=!isFake&&Math.random()<c.rare;
+  const trueV=r10(isFake?apparent*rand(0.04,0.1):isRare?apparent*rand(6,12):apparent*rand(0.8,1.3));
+  const spots=SPOTS[type.cat].map(s=>({k:s.k,text:pick(s.ok),bad:false,rare:false,revealed:false}));
+  if(isFake){
+    const idx=[0,1,2].sort(()=>Math.random()-0.5).slice(0,Math.random()<0.5?1:2);
+    idx.forEach(i=>{spots[i].bad=true;spots[i].text=pick(SPOTS[type.cat][i].bad);});
+  }
+  if(isRare){const i=Math.floor(Math.random()*3);spots[i].rare=true;spots[i].text=RARE_HINT;}
+  const w=[0.35,0.2,0.1][S.up.abacus];
+  const center=apparent*rand(0.9,1.1);
+  const ask=r10(apparent*rand(...c.askR));
+  const floor=Math.min(ask,r10(apparent*rand(...c.floorR)));
+  return {c,name:pick(c.names),line:pick(c.lines),ask,floor,pat:c.pat,
+    item:{type,name:pick(ERAS)+' '+type.name,apparent,trueV,isFake,isRare,spots,est:[r10(center*(1-w)),r10(center*(1+w))]}};
+}
+
+function hud(){
+  return `<div class="hud"><span>第<b>${S.day}</b>天</span><span>现金<b>¥${fmt(S.cash)}</b></span><span>库房<b>${S.inv.length}</b>件</span></div>`;
+}
+function rentLeftText(){const l=nextRentDay()-S.day;return l===0?'今晚':l+'天后';}
+function mkHtml(){return `<div class="mk">${CATS.map(c=>{const m=S.market[c];return `<span class="${m>1?'up':m<1?'down':''}">${c} ×${m.toFixed(1)}</span>`;}).join('')}</div>`;}
+
+function stamp(text,color){
+  const d=document.createElement('div');d.className='stamp serif';d.style.color=color;d.style.borderColor=color;d.textContent=text;
+  document.body.appendChild(d);setTimeout(()=>d.remove(),1400);
+}
+function toast(t){
+  document.querySelectorAll('.toast').forEach(e=>e.remove());
+  const d=document.createElement('div');d.className='toast';d.innerHTML=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+
+/* ---------- SVG ---------- */
+const ITEM_SVG={
+  vase:`<path d="M41 12h18v7c0 5 19 13 19 35c0 19-11 30-15 32H37c-4-2-15-13-15-32c0-22 19-30 19-35z" fill="#f8f5ee" stroke="#24467f" stroke-width="2"/><path d="M27 46q23-10 46 0" fill="none" stroke="#24467f" stroke-width="3"/><path d="M26 68q24 8 48 0" fill="none" stroke="#24467f" stroke-width="2.5"/><circle cx="50" cy="57" r="6" fill="none" stroke="#24467f" stroke-width="2"/><circle cx="37" cy="58" r="3" fill="#24467f"/><circle cx="63" cy="58" r="3" fill="#24467f"/>`,
+  bowl:`<path d="M14 40h72c0 22-16 34-36 34S14 62 14 40z" fill="#fbf6ef" stroke="#b9875a" stroke-width="2"/><rect x="38" y="74" width="24" height="7" rx="2" fill="#f1e6d2" stroke="#b9875a" stroke-width="2"/><circle cx="34" cy="52" r="5" fill="#e48aa6"/><circle cx="50" cy="56" r="6" fill="#f0b23a"/><circle cx="66" cy="52" r="5" fill="#e48aa6"/><path d="M28 60q6 6 12 0M60 60q6 6 12 0" stroke="#5e9a5a" stroke-width="2" fill="none"/>`,
+  coin:`<circle cx="50" cy="50" r="34" fill="#a7823f" stroke="#6b5226" stroke-width="3"/><circle cx="50" cy="50" r="27" fill="none" stroke="#6b5226" stroke-width="1.5"/><rect x="41" y="41" width="18" height="18" fill="#efe0bf" stroke="#6b5226" stroke-width="2"/><g font-size="11" fill="#3e2f15" font-family="serif" text-anchor="middle"><text x="50" y="35">乾</text><text x="50" y="73">隆</text><text x="69" y="54">通</text><text x="31" y="54">宝</text></g>`,
+  silver:`<circle cx="50" cy="50" r="34" fill="#d3d7da" stroke="#868e94" stroke-width="3"/><circle cx="50" cy="50" r="26" fill="none" stroke="#9aa2a8" stroke-width="1.5" stroke-dasharray="2 2"/><text x="50" y="57" text-anchor="middle" font-size="19" fill="#5d666c" font-family="serif">壹圆</text>`,
+  bangle:`<circle cx="50" cy="52" r="28" fill="none" stroke="#3f9a6b" stroke-width="13"/><circle cx="50" cy="52" r="28" fill="none" stroke="#9fdcb9" stroke-width="3" stroke-dasharray="14 10" opacity=".8"/>`,
+  pendant:`<path d="M50 6v18" stroke="#b8322a" stroke-width="2"/><circle cx="50" cy="56" r="31" fill="#eef2e6" stroke="#b6c3a6" stroke-width="2.5"/><circle cx="50" cy="56" r="9" fill="#efe0bf" stroke="#b6c3a6" stroke-width="2"/><path d="M30 53q8-14 20-12M70 59q-8 14-20 12" stroke="#a9b89a" stroke-width="2.5" fill="none"/>`,
+  scroll:`<rect x="26" y="8" width="48" height="6" rx="2" fill="#6b4226"/><rect x="30" y="14" width="40" height="72" fill="#efe2c2" stroke="#c9b48a"/><rect x="26" y="86" width="48" height="6" rx="2" fill="#6b4226"/><path d="M33 68l10-18 8 10 7-14 9 22z" fill="#7e8c7a" opacity=".85"/><path d="M33 74h34" stroke="#9aa79a"/><rect x="59" y="20" width="6" height="6" fill="#b8322a"/><path d="M38 22v18M44 22v12" stroke="#3a2614" stroke-width="1.5"/>`,
+  teapot:`<path d="M24 58q-14-4-17-15q9 2 19 9z" fill="#8a4b2c"/><path d="M72 50q16 0 14 14q-2 10-14 8" fill="none" stroke="#8a4b2c" stroke-width="5"/><ellipse cx="48" cy="60" rx="26" ry="19" fill="#8a4b2c"/><ellipse cx="48" cy="42" rx="14" ry="4" fill="#7a3f22"/><circle cx="48" cy="37" r="4" fill="#7a3f22"/>`,
+  watch:`<path d="M50 18q-16-6-26 8" stroke="#b08a3a" stroke-width="2" fill="none" stroke-dasharray="3 2"/><rect x="45" y="18" width="10" height="8" rx="2" fill="#c9a043"/><circle cx="50" cy="56" r="30" fill="#d8b45a" stroke="#a7822e" stroke-width="2"/><circle cx="50" cy="56" r="24" fill="#fffaf0"/><path d="M50 56V40M50 56l10 6" stroke="#3a2614" stroke-width="2.5" stroke-linecap="round"/><circle cx="50" cy="56" r="2.5" fill="#3a2614"/>`
+};
+const itemSVG=id=>`<svg viewBox="0 0 100 100">${ITEM_SVG[id]}</svg>`;
+function custSVG(c){
+  let hat='';
+  if(c.t==='老行家') hat='<path d="M33 31q17-22 34 0z" fill="#1d1d1d"/><circle cx="50" cy="20" r="2" fill="#b8322a"/>';
+  else if(c.t==='不识货') hat='<rect x="26" y="25" width="48" height="5" rx="2" fill="#c9a043"/><path d="M36 27q14-16 28 0z" fill="#d8b45a"/>';
+  else if(c.t==='寻常百姓') hat='<path d="M33 30q17-18 34 0z" fill="#555"/>';
+  const mouth=c.t==='急用钱'?'M45 47q5-3 10 0':'M45 46q5 3 10 0';
+  return `<svg viewBox="0 0 100 100" width="92" height="92"><path d="M16 100q0-34 34-36q34 2 34 36z" fill="${c.coat}"/><circle cx="50" cy="38" r="17" fill="#f1d2b0"/><circle cx="44" cy="38" r="1.8" fill="#3a2614"/><circle cx="56" cy="38" r="1.8" fill="#3a2614"/><path d="${mouth}" stroke="#3a2614" stroke-width="1.6" fill="none"/>${hat}</svg>`;
+}
+
+/* ---------- 屏幕 ---------- */
+function renderTitle(){
+  const best=JSON.parse(localStorage.getItem('jl_best')||'null');
+  app.innerHTML=`<div class="screen center">
+    <div class="logo serif">捡漏当铺</div>
+    <div class="sub">收得准，卖得巧，才交得起房租</div>
+    <div class="card rules">
+      <p>1. 客人上门典当老物件，你来<b>验货、砍价、决定收不收</b></p>
+      <p>2. 每天眼力有限，放大镜要用在刀刃上，小心<b>赝品</b></p>
+      <p>3. 收市时按行情出手，每 3 天交一次<b>越来越贵的房租</b></p>
+      <p>4. 不识货的客人手里，偶尔藏着<b>重器</b></p>
+    </div>
+    ${best?`<div class="best">最佳纪录：撑到第 ${best.days} 天 · 最大一笔捡漏 ¥${fmt(best.best)}</div>`:''}
+    <button class="btn big" onclick="startGame()">开 张</button>
+  </div>`;
+}
+function startGame(){newGame();genMarket();renderDayStart();}
+
+function renderDayStart(){
+  const left=nextRentDay()-S.day;
+  app.innerHTML=hud()+`<div class="screen center">
+    <div class="dayTitle serif">第 ${S.day} 天</div>
+    <div class="card"><div class="label">今日行情</div>
+      ${S.news.length?S.news.map(n=>`<p class="${n.up?'up':'down'}">${n.text}</p>`).join(''):'<p>市面平稳，各类行情如常</p>'}
+      ${mkHtml()}</div>
+    <div class="card">${left===0?'<b class="up">今晚打烊要交房租</b>':'距下次交租还有 '+left+' 天'}：<b>¥${fmt(rentAmount(S.rentIdx))}</b></div>
+    <button class="btn big" onclick="openShop()">开门迎客</button>
+  </div>`;
+}
+function openShop(){
+  S.eye=4+S.up.mag; S.custTotal=5+S.up.sign; S.custIdx=0; S.today={bought:0,sold:0,earn:0};
+  S.cur=genCustomer(); busy=false; renderCounter();
+}
+
+function renderCounter(){
+  const cu=S.cur,it=cu.item,m=S.market[it.type.cat],sm=sellMult();
+  const eyeMax=4+S.up.mag;
+  const o=f=>r10(cu.ask*f);
+  app.innerHTML=hud()+`
+  <div class="subhud"><span>客人 ${S.custIdx+1}/${S.custTotal}</span><span>眼力 <span class="eye">${'●'.repeat(S.eye)}${'○'.repeat(eyeMax-S.eye)}</span></span><span>交租：${rentLeftText()}</span></div>
+  <div class="scene"><div class="cust">${custSVG(cu.c)}<div class="cname">${cu.name}<span class="tag">${cu.c.t}</span></div></div>
+    <div class="bubble" id="bubble">${cu.line}</div></div>
+  <div class="counter"><div class="itemRow">
+      <div class="itemPic">${itemSVG(it.type.id)}</div>
+      <div><div class="iname serif">${it.name}</div>
+        <div class="meta">${it.type.cat} · 今日行情 <span class="${m>1?'up':m<1?'down':''}">×${m.toFixed(1)}</span></div>
+        <div class="est">你的估价 <b>¥${fmt(it.est[0])} ~ ${fmt(it.est[1])}</b></div>
+        <div class="meta">若是真品，今天约能卖 ¥${fmt(it.est[0]*m*sm)} ~ ${fmt(it.est[1]*m*sm)}</div></div></div>
+    <div class="spots">${it.spots.map((s,i)=>s.revealed
+      ?`<div class="spot ${s.bad?'bad':s.rare?'rare':'ok'}"><b>${s.k}</b>${s.text}</div>`
+      :`<button class="spot btnSpot" ${S.eye<=0?'disabled':''} onclick="inspect(${i})"><span style="color:#6b4226">用放大镜看「${s.k}」</span><span>-1 眼力</span></button>`).join('')}</div>
+  </div>
+  <div class="deal">
+    <div class="askRow"><span>对方要价</span><b class="serif">¥${fmt(cu.ask)}</b><span class="pat">耐心 ${'●'.repeat(cu.pat)}${'○'.repeat(cu.c.pat-cu.pat)}</span></div>
+    <div class="btns">
+      <button class="btn full" ${cu.ask>S.cash?'disabled':''} onclick="offer(1)">${cu.ask>S.cash?'现金不足':'成交 ¥'+fmt(cu.ask)}</button>
+      <button class="btn ghost" onclick="offer(0.8)">还价 ¥${fmt(o(0.8))}</button>
+      <button class="btn ghost" onclick="offer(0.6)">还价 ¥${fmt(o(0.6))}</button>
+      <button class="btn ghost" onclick="offer(0.4)">狠砍 ¥${fmt(o(0.4))}</button>
+      <button class="btn gray" onclick="reject()">不收，请回</button>
+    </div>
+  </div>`;
+}
+function say(t){const b=document.getElementById('bubble');if(b)b.textContent=t;}
+
+function inspect(i){
+  if(busy||S.eye<=0)return;
+  const s=S.cur.item.spots[i]; if(s.revealed)return;
+  S.eye--; s.revealed=true; renderCounter();
+  if(s.bad) say('（客人眼神有点躲闪）');
+  if(s.rare) say('（客人一脸茫然，显然不知道这东西的分量）');
+}
+function offer(f){
+  if(busy)return;
+  const cu=S.cur, price=r10(cu.ask*f);
+  if(price>S.cash){toast('现金不够');return;}
+  if(f>=1||price>=cu.floor){
+    if(f<1) say(price<cu.ask*0.75?'唉……行吧，算我倒霉。':pick(cu.c.accept)); else say(pick(cu.c.accept));
+    buy(price); return;
+  }
+  cu.pat--;
+  if(cu.pat<=0){
+    say(pick(cu.c.angry));
+    const b=document.getElementById('bubble'); if(b) b.classList.add('shake');
+    busy=true; setTimeout(nextCustomer,1100); return;
+  }
+  cu.ask=Math.max(cu.floor,r10(cu.ask-(cu.ask-price)*0.4));
+  const line=pick(cu.c.haggle)+` ¥${fmt(cu.ask)}，不能再少了。`;
+  renderCounter(); say(line);
+}
+function buy(price){
+  busy=true;
+  S.cash-=price; S.stats.bought++; S.today.bought++;
+  S.inv.push({...S.cur.item,paid:price,day:S.day});
+  toast(`收入 ${S.cur.item.name}，付出 ¥${fmt(price)}`);
+  setTimeout(nextCustomer,1100);
+}
+function reject(){if(busy)return;busy=true;say('那……我再去别家问问。');setTimeout(nextCustomer,800);}
+function nextCustomer(){
+  S.custIdx++; busy=false;
+  if(S.custIdx>=S.custTotal){renderClose();return;}
+  S.cur=genCustomer(); renderCounter();
+}
+
+function sellValue(it){return r10(it.trueV*S.market[it.type.cat]*sellMult());}
+function renderClose(){
+  const left=nextRentDay()-S.day;
+  app.innerHTML=hud()+`<div class="screen">
+    <div class="secTitle serif">收市 · 出货</div>
+    <div class="card" style="padding:10px 12px"><div class="label">今日行情（出手才知道真假）</div>${mkHtml()}</div>
+    <div class="invList">${S.inv.length?S.inv.map((it,i)=>`<div class="invItem"><div class="pic">${itemSVG(it.type.id)}</div>
+      <div class="info"><div class="iname serif">${it.name}</div><div class="meta">收价 ¥${fmt(it.paid)} · ${it.type.cat} ×${S.market[it.type.cat].toFixed(1)}${it.day<S.day?' · 压货'+(S.day-it.day)+'天':''}</div></div>
+      <button class="btn small" onclick="sell(${i})">出手</button></div>`).join(''):'<div class="empty">库房空空如也</div>'}</div>
+    <div class="tip">不出手的货留在库房，可以等行情好了再卖</div>
+    <div class="card" style="text-align:center">${left===0?`<b class="up">今晚要交房租 ¥${fmt(rentAmount(S.rentIdx))}</b>`:`${left} 天后交房租 ¥${fmt(rentAmount(S.rentIdx))}`}</div>
+    <button class="btn big" onclick="endDay()">打 烊</button>
+  </div>`;
+}
+function sell(i){
+  if(busy)return;
+  const it=S.inv[i], v=sellValue(it), p=v-it.paid;
+  S.cash+=v; S.inv.splice(i,1); S.stats.profit+=p; S.stats.sold++; S.today.sold++; S.today.earn+=p;
+  if(p>S.stats.best){S.stats.best=p;S.stats.bestName=it.name;}
+  if(it.isFake){S.stats.fakes++;stamp('打眼了','#555');toast(`赝品！只卖了 ¥${fmt(v)}，亏 ¥${fmt(-p)}`);}
+  else if(it.isRare){S.stats.rares++;stamp('捡到宝','#c9a043');toast(`竟是官窑重器！卖出 ¥${fmt(v)}，净赚 ¥${fmt(p)}`);}
+  else if(p>=Math.max(200,it.paid*0.5)){stamp('捡漏','#b8322a');toast(`卖出 ¥${fmt(v)}，赚 ¥${fmt(p)}`);}
+  else if(p<0){toast(`卖出 ¥${fmt(v)}，亏了 ¥${fmt(-p)}`);}
+  else toast(`卖出 ¥${fmt(v)}，小赚 ¥${fmt(p)}`);
+  renderClose();
+}
+function endDay(){
+  if(busy)return;
+  let msg='';
+  if(S.day===nextRentDay()){
+    const rent=rentAmount(S.rentIdx);
+    if(S.cash<rent&&S.inv.length){
+      let sum=0; S.inv.forEach(it=>{const v=r10(sellValue(it)*0.7);sum+=v;S.stats.profit+=v-it.paid;}); S.inv=[]; S.cash+=sum;
+      msg+=`现金不够交租，库存被迫七折贱卖，换回 ¥${fmt(sum)}。`;
+    }
+    if(S.cash<rent){gameOver(rent);return;}
+    S.cash-=rent; S.rentIdx++; msg+=`已交房租 ¥${fmt(rent)}。`;
+  }
+  renderUpgrade(msg);
+}
+function renderUpgrade(msg){
+  app.innerHTML=hud()+`<div class="screen">
+    <div class="secTitle serif">第 ${S.day} 天 · 打烊</div>
+    <div class="card">今天收货 ${S.today.bought} 件，出手 ${S.today.sold} 件，净赚 <b class="${S.today.earn>=0?'up':'down'}">¥${fmt(S.today.earn)}</b>${msg?'<br>'+msg:''}
+      <br>下次交租：第 ${nextRentDay()} 天，<b>¥${fmt(rentAmount(S.rentIdx))}</b></div>
+    <div class="label" style="margin-bottom:-6px">添置家当</div>
+    ${UPS.map(u=>{const lv=S.up[u.k],max=lv>=u.cost.length,c=max?0:u.cost[lv];
+      return `<div class="upItem"><div class="info"><div class="nm">${u.name}<span class="lv">${lv?'Lv.'+lv:''}</span></div><div class="meta">${u.desc}</div></div>
+      <button class="btn small ${max?'gray':'gold'}" ${max||S.cash<c?'disabled':''} onclick="buyUp('${u.k}')">${max?'已满级':'¥'+fmt(c)}</button></div>`;}).join('')}
+    <button class="btn big" onclick="nextDay()">明天见</button>
+  </div>`;
+}
+function buyUp(k){const u=UPS.find(x=>x.k===k),lv=S.up[k];if(lv>=u.cost.length||S.cash<u.cost[lv])return;S.cash-=u.cost[lv];S.up[k]++;toast(`添置了${u.name}`);renderUpgrade('');}
+function nextDay(){S.day++;genMarket();renderDayStart();}
+
+function gameOver(rent){
+  const d=S.day;
+  const rank=d<=4?'学徒':d<=8?'伙计':d<=12?'掌柜':d<=18?'大掌柜':'鉴宝宗师';
+  const best=JSON.parse(localStorage.getItem('jl_best')||'null');
+  const isNew=!best||d>best.days||(d===best.days&&S.stats.best>best.best);
+  if(isNew) localStorage.setItem('jl_best',JSON.stringify({days:d,best:S.stats.best}));
+  app.innerHTML=`<div class="screen center">
+    <div class="label">交不起 ¥${fmt(rent)} 的房租，当铺关门了</div>
+    <div class="rank serif">${rank}</div>
+    <div class="sub">撑到了第 ${d} 天${isNew?' · <b class="up">新纪录</b>':''}</div>
+    <div class="stats">
+      <div class="stat"><div class="n">¥${fmt(S.stats.best)}</div><div class="l">最大一笔捡漏</div></div>
+      <div class="stat"><div class="n">${S.stats.rares}</div><div class="l">捡到重器</div></div>
+      <div class="stat"><div class="n">${S.stats.bought}</div><div class="l">收货件数</div></div>
+      <div class="stat"><div class="n">${S.stats.fakes}</div><div class="l">打眼次数</div></div>
+    </div>
+    <div class="share">我在《捡漏当铺》撑到第 ${d} 天，${S.stats.best>0?`最狠一次收${S.stats.bestName}净赚 ¥${fmt(S.stats.best)}，`:''}打眼 ${S.stats.fakes} 次。你能比我眼毒吗？</div>
+    <button class="btn big" onclick="startGame()">再开一家</button>
+    <button class="btn ghost" onclick="renderTitle()">回到首页</button>
+  </div>`;
+}
+renderTitle();
+</script>
+</body>
+</html>
